@@ -1,0 +1,33 @@
+{
+  "name": "Bump",
+  "version": "1.0",
+  "description": "Make streaming a social experience!",
+  "manifest_version": 2,
+  "options_page": "options.html",
+  "oauth2":{
+      "client_id":"285182200858-a3p61ck2fqume19a859elnecuvvt9o57.apps.googleusercontent.com",
+      "scopes":["https://www.googleapis.com/auth/spreadsheets"]
+  },
+  "permissions": ["*://*/*","tabs","declarativeContent","storage", "identity", "identity.email", "webNavigation"],
+  "content_security_policy": "script-src 'self' https://*.google.com/ https://unpkg.com/sweetalert/ https://www.gstatic.com/ https://*.firebaseio.com https://*.firebase.com https://www.googleapis.com; object-src 'self'; connect-src 'self' wss://*.firebaseio.com https://*.googleapis.com https://*.facebook.com;",
+  "key":"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkRfZ44VqJTLpbOquA2diDdqlWdNYpipgGWw1DLjmgcuRwJayMLfUIFGOvCS/CcP7vNLbQXA0esaMHxjbXzitH0IdTmbllUO/rj1G640tTNQ3Q6OPDt2c8cn4yHtb0Ja1uJky6uHTDKsUOFOd/oXo4r3wMtdNR53N1iwNlplzSnjVaXhRTrznOqcJ8mGrQlafGPAPNX+iPn2a9Stsc39nzp9dsyUnMcmmEpfE0cOSNmZOAt/9LV4RFKwReIwUfzgh25yWqemGYuNLUChpJqmt4RevbVekMi3ran8RIzVh67h6uRMmiogL2AUXEhrDtKOMaqZvHiJVA1HaDfw9d+1DqwIDAQAB",
+  "page_action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+          "16": "images/logo16.png",
+          "32": "images/logo32.png",
+          "48": "images/logo48.png",
+          "128": "images/logo128.png"
+      }
+    },
+    "icons": {
+        "16": "images/logo16.png",
+        "32": "images/logo32.png",
+        "48": "images/logo48.png",
+        "128": "images/logo128.png"
+    },
+      "background": {
+        "page": "background.html",
+        "persistent": false
+  }
+}

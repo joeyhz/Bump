@@ -1,0 +1,331 @@
+
+input[type=text] {
+  border: 2px solid blue;
+  border-radius: 4px;
+  padding: 15px 15px;
+}
+
+h1 {
+  font-size: 30px;
+  color: #5e0c0f;
+}
+
+p {
+    font-size: 20px;
+}
+body {
+  background-color: lightblue;
+}
+
+img {
+    float:right;
+    margin-right: 40px;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    width: 200px;
+    height: 200px;
+}
+
+.box{
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 23px;
+}
+
+.boxIn{
+    font-size: 23px;
+    float: right;
+    margin-right:100px;
+    position:relative;
+    bottom:5px;
+}
+
+.banner{
+    margin-top:30px;
+}
+
+.flex{
+    display: flex;
+}
+
+.flex > button{
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 13px 19px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    margin-right:52px;
+    cursor: pointer;
+    border-radius: 4px;
+
+}
+
+.FBbutton{
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 13px 19px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.sendButton{
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 13px 19px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px 0px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.tm{
+    margin-top: 20px;
+}
+
+.bm0{
+    margin-bottom: 0px;
+}
+
+.lastButton{
+    background-color: #ab3f4e;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 20px 0px 20px;
+    float: right;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.doneButton{
+    background-color: #fc7703;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    display: block;
+    float:right;
+    text-align: center;
+    text-decoration: none;
+    bottom: 80px;
+    display: inline-block;
+    font-size: 20px;
+    margin-right:100px;
+    margin-left: 10px;
+    margin-top: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.inv{
+    display: none;
+}
+
+.opt{
+    float:none;
+}
+
+.removeButton{
+    background-color: #a11b2d;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline;
+    float: right;
+    font-size: 15px;
+    margin: 4px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.friend{
+    font-size: 25px;
+    margin-top: 10px;
+    background-color: LightGray;
+    padding-bottom: 13px;
+    padding-top: 13px;
+    padding-left: 6px;
+    display:block;
+}
+
+.friend.removeF{
+    animation-name: remove;
+    animation-duration: 0.5s;
+}
+@keyframes remove {
+    from{background-color: LightGray;}
+    to{background-color: red;}
+}
+
+
+/*Toggle switch CSS
+sourced from: https://stackoverflow.com/questions/39846282/how-to-add-the-text-on-and-off-to-toggle-button
+*/
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 90px;
+  height: 34px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ca2222;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2ab934;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(55px);
+  -ms-transform: translateX(55px);
+  transform: translateX(55px);
+}
+
+/*------ ADDED CSS ---------*/
+.on
+{
+  display: none;
+}
+
+.on, .off
+{
+  color: white;
+  position: absolute;
+  transform: translate(-50%,-50%);
+  top: 50%;
+  left: 50%;
+  font-size: 10px;
+  font-family: Verdana, sans-serif;
+}
+
+input:checked+ .slider .on
+{display: block;}
+
+input:checked + .slider .off
+{display: none;}
+
+/*--------- END --------*/
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;}
+
+
+/*Checkbox CSSS*/
+/* Customize the label (the container) */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}

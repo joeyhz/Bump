@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+
+<link rel="stylesheet" type="text/css" href="install.css">
+
+  </head>
+  <body>
+<img src="/images/logo1024.png" alt="Logo">
+<h1>Settings</h1>
+
+<p>Ask before activating:</p>
+<label class="switch">
+    <input type="checkbox" id="actAsk">
+        <div class="slider round"><!--ADDED HTML -->
+            <span class="on">ON</span>
+            <span class="off">OFF</span><!--END-->
+        </div>
+</label>
+<p>Invisible Mode:</p>
+<label class="switch">
+    <input type="checkbox" id="invisMode">
+        <div class="slider round"><!--ADDED HTML -->
+            <span class="on">ON</span>
+            <span class="off">OFF</span><!--END-->
+        </div>
+</label>
+<p>Bump into friends when you are both watching content with the same:</p>
+<label class="container">Title
+  <input type="checkbox" id = "title" checked="checked">
+  <span class="checkmark"></span>
+</label>
+<label class="container">Poster
+  <input type="checkbox" id = "poster" checked="checked">
+  <span class="checkmark"></span>
+</label>
+<p>Use Bump while watching videos on:</p>
+<label class="container">YouTube
+  <input type="checkbox" id = "youtube" checked="checked">
+  <span class="checkmark"></span>
+</label>
+<label class="container">Facebook Watch
+  <input type="checkbox" id = "fb" checked="checked">
+  <span class="checkmark"></span>
+</label>
+<label class="container">Twitch
+  <input type="checkbox" id = "twitch" checked="checked">
+  <span class="checkmark"></span>
+</label>
+<br>
+<button class = "sendButton" id = "sendButton">Submit</button>
+<button class = "lastButton" id = "lastButton">Manage Friends</button>
+<button class = "doneButton opt" id = "doneButton">Exit</button>
+
+  <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-database.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src = "options.js"> </script>
+  </body>
+</html>
