@@ -57,13 +57,18 @@ var rule1 = {
 chrome.storage.sync.get('userid', function(items){
     let id = items.userid
     firebase.database().ref('Connections/'+id+'/friend').on('value', function(friendID){
+        console.log('wave');
         if (friendID.val()){
+            resetConnections(id)
             let fName;
             console.log('friendID',friendID.val())
-            firebase.database().ref('Usernames/'+friendID).once('value', function(snap){fName = snap.val()})
-            if(confirm(fName+' is giving you a wave!\nDo you want to respond?')){
-                hangoutAccepted()
-            }
+            firebase.database().ref('Usernames/'+friendID.val()).once('value', function(snap){
+                fName = snap.val()
+                //alert('fName: '+fName)
+                if(confirm('Hey '+id+'!\n'+fName+' is giving you a wave!\nDo you want to respond?')){
+                    hangoutAccepted()
+                }
+            })
         }
     })
 });
@@ -76,7 +81,7 @@ chrome.storage.sync.get(['friendIDs','userid','title','poster'], function(items)
     var myT;
     var pAllow = items.poster
     var tAllow = items.title
-    firebase.database().ref('Activity/'+uid).once('value',function(snap){
+    firebase.database().ref('Activity/'+uid).on('value',function(snap){
         snap.forEach(function(ch){
             if (ch.key == 'poster'){
                 myP = ch.val()
@@ -88,11 +93,11 @@ chrome.storage.sync.get(['friendIDs','userid','title','poster'], function(items)
             firebase.database().ref('Activity/'+friend).on('value',
                 function(snapshot){
                     if (tAllow && snapshot.child('title').val()==myT){
-                        fPref(id, title, 'title')//check friend's settings for permission
+                        fPref(friend, myT, 'title')//check friend's settings for permission
                     }
                     else if (pAllow){
                         if(snapshot.child('poster').val()==myP){
-                            fPref(id, poster, 'poster')//check friend's settings for permission
+                            fPref(friend, myP, 'poster')//check friend's settings for permission
                         }
                     }
                 }
@@ -181,6 +186,10 @@ chrome.runtime.onMessage.addListener(
     }
 )
 
+function resetConnections(uid){
+    firebase.database().ref('Connections/'+uid).child('friend').set(false);
+}
+
 function checkMatch(poster, title){
     console.log('checking')
     chrome.storage.sync.get(['friendIDs', 'poster', 'title'],
@@ -191,7 +200,7 @@ function checkMatch(poster, title){
             fList.forEach(function(id){
                 firebase.database().ref('Activity/'+id).once('value',
                     function(snapshot){
-                        //alert('1: '+snapshot.child('title').val()+' allows: '+pAllow+tAllow)
+                        console.log('1: '+snapshot.child('title').val()+' allows: '+pAllow+tAllow)
                         //alert('key: '+childS.key+'\nval: '+childS.val()+'allows: '+pAllow+tAllow)
                         if (tAllow && snapshot.child('title').val()==title){
                             fPref(id, title, 'title')//check friend's settings for permission
@@ -267,6 +276,10 @@ function startChat(id, info){
 
 function hangoutAccepted(){
     console.log('hangoutAccepted');
+    chrome.storage.sync.get()
+    chrome.storage.sync.get('userid', function(item){
+        firebase.database().ref('Connections/'+id).child('friend').set(item.userid);
+    });
 }
 
 /*    chrome.notifications.create('not',opt,function(id){
