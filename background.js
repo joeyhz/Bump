@@ -1,17 +1,3 @@
-/*chrome.runtime.onInstalled.addListener(function() {
-  chrome.storage.sync.set({color: '#3aa757'}, function() {
-    console.log('The color is green.');
-  });
-  chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-    chrome.declarativeContent.onPageChanged.addRules([{
-      conditions: [new chrome.declarativeContent.PageStateMatcher({
-        pageUrl: {hostEquals: 'developer.chrome.com'},
-      })
-      ],
-          actions: [new chrome.declarativeContent.ShowPageAction()]
-    }]);
-  });
-});*/
 
 var config = {
   apiKey: "AIzaSyCRcoJ5tRdbh5tFdGMWp_A1L_TKCFteZHI",
@@ -37,6 +23,7 @@ chrome.identity.getAuthToken({interactive: true}, function(token) {
 chrome.storage.sync.get({active:false},function(act){active = act.active;})
 
 var rule1 = {
+    //set where the button is working
     conditions: [
         new chrome.declarativeContent.PageStateMatcher({
             pageUrl: {
@@ -50,6 +37,13 @@ var rule1 = {
                 schemes: ['https']
             }
         })
+        new chrome.declarativeContent.PageStateMatcher({
+            pageUrl: {
+                hostContains: 'www.facebook.com',
+                schemes: ['https']
+            }
+        })
+
     ],
     actions: [new chrome.declarativeContent.ShowPageAction()]
 };
@@ -59,7 +53,7 @@ chrome.storage.sync.get('userid', function(items){
     firebase.database().ref('Connections/'+id+'/friend').on('value', function(friendID){
         console.log('wave');
         if (friendID.val()){
-            resetConnections(id)
+            firebase.database().ref('Connections/'+id).child('friend').set(false);//set user's connection status back to false
             let fName;
             console.log('friendID',friendID.val())
             firebase.database().ref('Usernames/'+friendID.val()).once('value', function(snap){
@@ -114,7 +108,8 @@ chrome.runtime.onInstalled.addListener(function() {
     });
 });//,'invisMode','title','poster','youtube','fb','twitch'
 chrome.webNavigation.onCompleted.addListener(function(web) {
-
+    //On entering website, sets up the user's database to be filled in
+    // also handles the ask before activating setting
     if (active){
         chrome.storage.sync.get(['userid','actAsk'], function(items){
             myUID = items.userid
@@ -140,7 +135,8 @@ chrome.webNavigation.onCompleted.addListener(function(web) {
 );
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-    //alert('tab '+active)
+    //executes content.js when on appropriate tabs and with appropriate settings.
+    // content.js will send a message with the info from the website
     if (active){
         if (changeInfo.status == 'complete'&& tab.status == 'complete' && tab.url != undefined) {
             //alert('tab: '+tab.url+'\n stat: '+changeInfo.status)
@@ -174,6 +170,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 });
 
 chrome.runtime.onMessage.addListener(
+    //listens for message from content.js, updates database with web info and
+    //starts checking for a match with friends
     function(mess, send, sendResponse){
         alert('user: '+mess.user+'\ntitle: '+mess.title)
         chrome.storage.sync.get('userid',function(my){
@@ -191,6 +189,7 @@ function resetConnections(uid){
 }
 
 function checkMatch(poster, title){
+    //Sees if any of your friends are watching the content that you just entered
     console.log('checking')
     chrome.storage.sync.get(['friendIDs', 'poster', 'title'],
         function(friend){
@@ -217,7 +216,34 @@ function checkMatch(poster, title){
     );
 }
 
+function fPref(fid, info, type){
+    alert('fPref')
+    var inv = true;
+    var medium = false;
+    firebase.database().ref('Settings/'+fid).once('value',function(snapshot){
+        snapshot.forEach(function(child){
+            console.log('setting: ',child.key)
+            if (child.key == type){
+                console.log("inMed:",child.val())
+                medium = child.val();
+            }else if(child.key == 'invisMode'){
+                console.log("inInv:",child.val())
+                inv = child.val()
+            }
+        });
+        console.log("inv:",inv)
+        console.log("med:",medium)
+        if (!inv && medium){
+            //the friend is not on invisible mode and wants to be bumped into on this platform
+            console.log('match!',info)
+            match(fid, info, type);
+        }
+    })
+
+}
+
 function match(fid, info, type){
+    //Found a suitable match, giving option to reaach out
     var accept;
     firebase.database().ref('Usernames/'+fid).once('value',
         function(name){
@@ -240,43 +266,19 @@ function match(fid, info, type){
 
 }
 
-function fPref(fid, info, type){
-    alert('fPref')
-    var inv = true;
-    var medium = false;
-    firebase.database().ref('Settings/'+fid).once('value',
-    function(snapshot){
-        snapshot.forEach(function(child){
-            console.log('setting: ',child.key)
-            if (child.key == type){
-                console.log("inMed:",child.val())
-                medium = child.val();
-            }else if(child.key == 'invisMode'){
-                console.log("inInv:",child.val())
-                inv = child.val()
-            }
-        });
-        console.log("inv:",inv)
-        console.log("med:",medium)
-        if (!inv && medium){
-            console.log('match!',info)
-            match(fid, info, type);
-        }
-    })
 
-}
 
 function startChat(id, info){
     alert(id+info)
+    //set friend's connection status to your own id.
+    //This will trigger a wave on her device from you
     chrome.storage.sync.get('userid', function(item){
         firebase.database().ref('Connections/'+id).child('friend').set(item.userid);
     });
-    //window.open('https://hangouts.google.com/')
 }
 
 function hangoutAccepted(){
     console.log('hangoutAccepted');
-    chrome.storage.sync.get()
     chrome.storage.sync.get('userid', function(item){
         firebase.database().ref('Connections/'+id).child('friend').set(item.userid);
     });
