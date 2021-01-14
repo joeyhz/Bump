@@ -36,7 +36,7 @@ var rule1 = {
                 hostContains: 'www.twitch.tv',
                 schemes: ['https']
             }
-        })
+        }),
         new chrome.declarativeContent.PageStateMatcher({
             pageUrl: {
                 hostContains: 'www.facebook.com',
