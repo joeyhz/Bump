@@ -28,7 +28,7 @@ function goYT(){
             document.getElementById('info-contents').firstChild.lastChild.childNodes[3].firstChild.innerHTML;
         //alert('dom: '+domTitle)
         let user =
-            document.getElementById('meta-contents').firstChild.lastChild.childNodes[1].firstChild.childNodes[2].firstChild.childNodes[2].innerText;
+            document.querySelector("#text > a");
         chrome.runtime.sendMessage(
             {
                 user:user,

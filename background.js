@@ -190,7 +190,8 @@ function resetConnections(uid){
 
 function checkMatch(poster, title){
     //Sees if any of your friends are watching the content that you just entered
-    console.log('checking')
+    alert('ch');
+    console.log('checking');
     chrome.storage.sync.get(['friendIDs', 'poster', 'title'],
         function(friend){
             let pAllow = friend.poster//my poster allow, not the friend'switch
