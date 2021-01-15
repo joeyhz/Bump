@@ -164,7 +164,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
                         }
                     }
                 })
-            },5000);
+            },2000);
         }
     }
 });
