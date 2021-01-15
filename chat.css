@@ -27,8 +27,12 @@ body {
   font-family: Helvetica, sans-serif;
 }
 
+.title{
+    display: block;
+}
+
 .msger {
-  display: flex;
+  display: block;
   flex-flow: column wrap;
   justify-content: space-between;
   width: 100%;
