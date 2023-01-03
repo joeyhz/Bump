@@ -28,7 +28,8 @@ function goYT(){
             document.getElementById('info-contents').firstChild.lastChild.childNodes[3].firstChild.innerHTML;
         //alert('dom: '+domTitle)
         let user =
-            document.querySelector("#text > a").text;
+            document.getElementById("text").innerText;
+        console.log('user: '+user)
         chrome.runtime.sendMessage(
             {
                 user:user,
@@ -38,6 +39,8 @@ function goYT(){
                 console.log(response.got)
             }
         )
+        user = ""
+        domTitle = ""
         return u
     }
 }
