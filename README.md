@@ -4,15 +4,19 @@ Bump is a Chrome extension which allows people to make streaming a social experi
 
 # Demo Images:
 
+
 Behavior when a user named "testUser" and his friend "test" are simultaneously watching SNL clips:
 ![Contact alert](./README_IMAGES/contact.png)
+
 ![Wave alert](./README_IMAGES/wave.png)
+
 
 Settings Page:
 ![Settings](./README_IMAGES/settings.png)
 
+
 Manage Friends Page:
-![Friends](./README_IMAGES/friends.png)
+![Friends](./README_IMAGES/friends.jpg)
 
 
 
